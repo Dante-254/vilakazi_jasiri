@@ -2,7 +2,7 @@ export const PATROLS = [
   {
     id: "dove",
     name: "Dove Patrol",
-    status: "novices",
+    status: "Novices",
     description:
       "Novices preparing for investment. Focus on learning values and basic skills.",
     color: "#9CA3AF",
