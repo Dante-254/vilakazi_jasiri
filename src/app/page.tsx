@@ -5,11 +5,11 @@ import HeroClient from "../components/ui/HeroClient";
 
 export default function Home() {
   return (
-    <div>
+    <div className="snap-y snap-mandatory h-screen overflow-y-scroll">
       <HeroClient />
 
       {/* Mission & Patrols */}
-      <section className="snap-start min-h-screen flex flex-col items-center justify-center py-16 px-6">
+      <section className="snap-start h-screen flex flex-col items-center justify-center py-16 px-6">
         <div className="max-w-5xl w-full">
           <div className="text-center">
             <h2 className="text-3xl font-semibold">Our Mission</h2>
@@ -56,7 +56,7 @@ export default function Home() {
       </section>
 
       {/* Who we are & Events preview */}
-      <section className="snap-start min-h-screen flex items-center justify-center py-16 px-6 bg-neutral-50 dark:bg-neutral-900">
+      <section className="snap-start h-screen flex items-center justify-center py-16 px-6 bg-neutral-50 dark:bg-neutral-900">
         <div className="max-w-4xl text-center">
           <h2 className="text-2xl font-semibold">Who We Are</h2>
           <p className="mt-3 text-gray-600 dark:text-neutral-300">

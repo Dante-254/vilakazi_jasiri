@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export default function HeroClient() {
   return (
-    <section className="snap-start min-h-screen flex items-center justify-center bg-gradient-to-br from-green-600 via-purple-600 to-yellow-400 text-white">
+    <section className="snap-start h-screen flex items-center justify-center bg-gradient-to-br from-green-600 via-purple-600 to-yellow-400 text-white">
       <div className="max-w-4xl mx-auto px-6 text-center">
         <motion.h1
           initial={{ y: -20, opacity: 0 }}

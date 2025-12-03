@@ -1,14 +1,28 @@
-import { notFound } from "next/navigation";
+import Link from "next/link";
 import PATROLS from "../../../data/patrols";
 
 interface Props {
-  params: { patrol: string };
+  params: { patrol: string } | Promise<{ patrol: string }>;
 }
 
-export default function PatrolPage({ params }: Props) {
-  const id = params.patrol;
+export default async function PatrolPage({ params }: Props) {
+  const resolved = await params;
+  const id = resolved.patrol;
   const patrol = PATROLS.find((p) => p.id === id);
-  if (!patrol) return notFound();
+  if (!patrol)
+    return (
+      <div className="max-w-4xl mx-auto px-6 py-16 text-center">
+        <h1 className="text-2xl font-semibold">Patrol not found</h1>
+        <p className="mt-2 text-gray-600">
+          We couldn't find a patrol named "{id}".
+        </p>
+        <div className="mt-4">
+          <Link href="/patrols" className="text-green-700 underline">
+            Back to Patrols
+          </Link>
+        </div>
+      </div>
+    );
 
   return (
     <div className="max-w-4xl mx-auto px-6 py-16">

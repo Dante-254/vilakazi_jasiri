@@ -6,7 +6,7 @@ export default function ThemeToggle() {
   const { theme, setTheme } = useTheme();
 
   useEffect(() => {
-    // no-op, ensures hydration matches
+    // ensure hydration matches
   }, []);
 
   return (

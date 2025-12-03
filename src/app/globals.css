@@ -30,3 +30,17 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* Hide scrollbars while preserving scrolling */
+::-webkit-scrollbar {
+  display: none;
+}
+* {
+  scrollbar-width: none;
+}
+
+/* Smooth scroll globally (kept responsive) */
+html,
+body {
+  scroll-behavior: smooth;
+}
