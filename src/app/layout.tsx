@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   title: "Villakazi Jasiri Scouts",
   description: "Villakazi Rover Crew — Service and Progress",
   icons: {
-    icon: "/villakazi.svg",
+    icon: "/villakazi.ico",
   },
 };
 
