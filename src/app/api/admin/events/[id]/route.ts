@@ -15,11 +15,12 @@ async function requireAuth() {
 
 export async function GET(
   req: Request,
-  { params }: { params: { id: string } }
+  context: { params: Promise<{ id: string }> }
 ) {
   try {
     await requireAuth();
-    const { id } = params;
+    const p = await context.params;
+    const { id } = p;
     const supabase = getSupabaseServer();
     const { data, error } = await supabase
       .from("events")
@@ -39,11 +40,12 @@ export async function GET(
 
 export async function PUT(
   req: Request,
-  { params }: { params: { id: string } }
+  context: { params: Promise<{ id: string }> }
 ) {
   try {
     await requireAuth();
-    const { id } = params;
+    const p = await context.params;
+    const { id } = p;
     const body = await req.json();
     const { title, description, date, image, isFeatured } = body;
     const supabase = getSupabaseServer();
@@ -71,11 +73,12 @@ export async function PUT(
 
 export async function DELETE(
   req: Request,
-  { params }: { params: { id: string } }
+  context: { params: Promise<{ id: string }> }
 ) {
   try {
     await requireAuth();
-    const { id } = params;
+    const p = await context.params;
+    const { id } = p;
     const supabase = getSupabaseServer();
     const { error } = await supabase.from("events").delete().eq("id", id);
     if (error)
