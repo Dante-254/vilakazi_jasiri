@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
-import { getSupabaseServer } from "../../../../lib/supabaseServer";
+import { getSupabaseServer } from "../../../../../lib/supabaseServer";
 
 export async function POST(req: Request) {
   try {
