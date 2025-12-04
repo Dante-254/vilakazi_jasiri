@@ -1,4 +1,5 @@
 import Link from "next/link";
+import AdminLink from "./AdminLink";
 
 export default function Footer() {
   return (
@@ -79,6 +80,9 @@ export default function Footer() {
                   <a href="#">Volunteer</a>
                 </li>
               </ul>
+              <div className="mt-4">
+                <AdminLink />
+              </div>
             </div>
           </div>
         </div>

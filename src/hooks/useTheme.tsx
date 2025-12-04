@@ -4,9 +4,14 @@ import { useEffect, useState } from "react";
 type Theme = "light" | "dark" | "system";
 
 export function useTheme() {
-  const [theme, setTheme] = useState<Theme>(() => {
-    if (typeof window === "undefined") return "system";
-    return (localStorage.getItem("theme") as Theme) || "system";
+  const [theme, setThemeState] = useState<Theme>(() => {
+    if (typeof window === "undefined") return "light";
+    return (localStorage.getItem("theme") as Theme) || "light";
+  });
+
+  const [manual, setManual] = useState<boolean>(() => {
+    if (typeof window === "undefined") return false;
+    return localStorage.getItem("theme_manual") === "true";
   });
 
   useEffect(() => {
@@ -22,16 +27,36 @@ export function useTheme() {
       }
     };
 
-    apply(theme);
+    // if user has not manually chosen theme, follow system; otherwise use stored theme
+    if (!manual) {
+      apply("system");
+    } else {
+      apply(theme);
+    }
+
     localStorage.setItem("theme", theme);
+    localStorage.setItem("theme_manual", manual ? "true" : "false");
 
     const mq = window.matchMedia("(prefers-color-scheme: dark)");
-    const onChange = () => theme === "system" && apply("system");
+    const onChange = () => {
+      if (!manual) apply("system");
+    };
     mq.addEventListener("change", onChange);
     return () => mq.removeEventListener("change", onChange);
   }, [theme]);
 
-  return { theme, setTheme } as const;
+  const setTheme = (t: Theme, manualChoice = true) => {
+    setThemeState(t);
+    setManual(manualChoice);
+    try {
+      localStorage.setItem("theme", t);
+      localStorage.setItem("theme_manual", manualChoice ? "true" : "false");
+    } catch {
+      // ignore
+    }
+  };
+
+  return { theme, setTheme, manual } as const;
 }
 
 export default useTheme;
