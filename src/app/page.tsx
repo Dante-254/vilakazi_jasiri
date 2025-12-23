@@ -2,11 +2,39 @@ import Image from "next/image";
 import Link from "next/link";
 import PATROLS from "../data/patrols";
 import HeroClient from "../components/ui/HeroClient";
+import { getSupabaseServer } from "../lib/supabaseServer";
 
-export default function Home() {
+async function FeaturedEvents() {
+  const supabase = getSupabaseServer();
+  const { data: events } = await supabase.from("events").select("*").order("date", { ascending: false });
+  const featured = (events || []).filter((e: any) => e.show_main_section);
+  if (!featured || featured.length === 0) return null;
+  const e = featured[0];
+  return (
+    <section className="snap-start py-16 px-6 bg-white">
+      <div className="max-w-6xl mx-auto">
+        <div className="rounded-lg overflow-hidden shadow-lg">
+          <div className="h-72 bg-cover bg-center" style={{ backgroundImage: `url('${e.image_url || ""}')` }} />
+          <div className="p-6">
+            <h3 className="text-2xl font-semibold">{e.title}</h3>
+            <p className="mt-2 text-gray-600">{e.description}</p>
+            <div className="mt-4">
+              <a href={`/events/${e.id}`} className="text-green-700 font-medium">Read more →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+export default async function Home() {
+  const featuredSection = await FeaturedEvents();
   return (
     <div className="snap-y snap-mandatory h-screen overflow-y-scroll">
       <HeroClient />
+
+      {featuredSection}
 
       {/* Mission & Patrols */}
       <section className="snap-start h-screen flex flex-col items-center justify-center py-16 px-6">

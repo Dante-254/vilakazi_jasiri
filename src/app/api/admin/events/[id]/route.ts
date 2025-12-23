@@ -47,7 +47,7 @@ export async function PUT(
     const p = await context.params;
     const { id } = p;
     const body = await req.json();
-    const { title, description, date, image, isFeatured } = body;
+    const { title, description, date, image_url, show_main_section, show_card } = body;
     const supabase = getSupabaseServer();
     const { data, error } = await supabase
       .from("events")
@@ -55,8 +55,9 @@ export async function PUT(
         title,
         description,
         date,
-        image: image || null,
-        isFeatured: !!isFeatured,
+        image_url: image_url || null,
+        show_main_section: !!show_main_section,
+        show_card: !!show_card,
       })
       .eq("id", id)
       .select();

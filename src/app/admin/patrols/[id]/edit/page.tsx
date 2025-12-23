@@ -1,18 +1,18 @@
 "use client";
 import { useEffect, useState } from "react";
-import EventForm from "../../../../../components/admin/EventForm";
+import PatrolMemberForm from "../../../../../components/admin/PatrolMemberForm";
 
-export default function EditEventPage({ params }: any) {
+export default function EditPatrolMemberPage({ params }: any) {
   const { id } = params;
   const [initial, setInitial] = useState<any>(null);
 
   useEffect(() => {
     let mounted = true;
-    fetch(`/api/admin/events/${id}`)
+    fetch(`/api/admin/patrols/${id}`)
       .then((r) => r.json())
       .then((d) => {
         if (!mounted) return;
-        setInitial(d.event || null);
+        setInitial(d.member || null);
       })
       .catch(() => {})
       .finally(() => {});
@@ -22,7 +22,7 @@ export default function EditEventPage({ params }: any) {
   return (
     <div className="min-h-screen p-6 bg-gradient-to-br from-neutral-50 to-neutral-100 dark:from-neutral-900 dark:to-neutral-800">
       <div className="max-w-2xl mx-auto">
-        <EventForm initialData={initial} eventId={id} />
+        <PatrolMemberForm initialData={initial} memberId={id} />
       </div>
     </div>
   );
